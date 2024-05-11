@@ -51,7 +51,7 @@ class Mailing(models.Model):
     period_mailing = models.CharField(max_length=50, choices=PeriodMailing, verbose_name='Периодичность рассылки')
     status_mailing = models.CharField(max_length=50, choices=StatusMailing, verbose_name='Статус рассылки ')
     client = models.ForeignKey(ClientService, on_delete=models.CASCADE, verbose_name='Клиенты рассылки')
-    message = models.OneToOneField(MessageMailing, on_delete=models.SET_NULL, verbose_name='Рассылка', **NULLABLE)
+    message = models.OneToOneField(MessageMailing, on_delete=models.SET_NULL, verbose_name='Сообщение', **NULLABLE)
 
     def __str__(self):
         return self.status_mailing

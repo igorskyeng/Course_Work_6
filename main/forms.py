@@ -1,4 +1,5 @@
 from django import forms
+from main.models import ClientService, MessageMailing
 
 
 class StyleFormMixin:
@@ -18,3 +19,24 @@ class CleanNameProductMixin:
                 raise forms.ValidationError('Запрещенное слово!')
 
         return cleaned_data
+
+
+class ClientAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
+
+    class Meta:
+        model = ClientService
+        fields = ('email', 'name', 'comments')
+
+
+class MessageAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
+
+    class Meta:
+        model = MessageMailing
+        fields = ('subject_line', 'body')
+
+
+class ClientForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
+
+    class Meta:
+        model = ClientService
+        fields = ('email', 'name', 'comments')
