@@ -8,23 +8,23 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
+                <a href="{% url 'main:client_list' %}" class="nav-link active" aria-current="page">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home"/>
                     </svg>
-                    Главная
+                    Клиенты
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-white">
+                <a href="{% url 'main:message_list' %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#table"/>
                     </svg>
-                    Категории
+                    Сообщения
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="{% url 'blog:list' %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#speedometer2"/>
                     </svg>
