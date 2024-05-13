@@ -13,6 +13,7 @@
                         Добавление клиента
                       {% endif %}
                   </h3>
+                  (Если указать не своего пользователя, то у вас не отобразиться карточка клиента.)
                   <div class="card-body">
                       {% csrf_token %}
                       {{ form.as_p }}
@@ -23,6 +24,7 @@
                             Создать
                           {% endif %}
                       </button>
+                      <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:client_list' %}">Назад</a>
                   </div>
               </div>
           </div>

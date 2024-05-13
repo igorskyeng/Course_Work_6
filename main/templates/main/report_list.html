@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<main class="row">
+
+{% for object in object_list|slice:100 %}
+    {% if not object or user.is_superuser or object_groups_user == object_groups %}
+
+<div class="row text-center col-12">
+    <div class="card rounded-3 shadow-sm">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Рассылки</th>
+                <th scope="col">Дата и время последней рассылки</th>
+                <th scope="col">Статус рассылки</th>
+                <th scope="col">Ответ сервера</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.mailing }}</td>
+                <td>{{ object.date_last_mailing }}</td>
+                <td>{{ object.status_mailing }}</td>
+                <td>{{ object.server_response }}</td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+    {% endif %}
+{% endfor %}
+
+</main>
+
+{% endblock %}

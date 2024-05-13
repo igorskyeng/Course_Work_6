@@ -4,43 +4,40 @@
 
 <div class="col-12 mb-5">
 
-    {% if perms.main.add_product %}
-        <a class="bnt btn-outline-primary" href="{% url 'main:create_client' %}">Добавить клиента</a>
-    {% endif %}
+    <a class="bnt btn-outline-primary" href="{% url 'main:create_client' %}">Добавить клиента</a>
 
 </div>
 
 <main class="row">
 
 {% for object in object_list|slice:100 %}
+    {% if not object or object.user == user or user.is_superuser or object_groups_user == object_groups %}
 
 <div class="row text-center col-4">
     <div class="card rounded-3 shadow-sm">
 
         <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">{{ object|title }} </h4>
+            <h4 class="my-0 fw-normal">{{ object|title }}</h4>
         </div>
 
         <div class="card-body">
-            <h2 class="card-title pricing-card-title">111</h2>
 
             <div>
-                <p>222</p>
-                <p>333</p>
+                <p>{{ object.comments }}</p>
             </div>
-
-             <p>
-                444
-            </p>
 
             <div class="d-flex justify-content-between align-items-centor">
                 <div class="bnt-group">
 
                     <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:client_detail' object.pk %}">Посмотреть</a>
 
-                    <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:client_edit' object.pk %}">Редактировать</a>
+                    {% if not object or object.user == user or user.is_superuser %}
 
-                    <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:delete_client' object.pk %}">Удалить</a>
+                        <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:client_edit' object.pk %}">Редактировать</a>
+
+                        <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:delete_client' object.pk %}">Удалить</a>
+
+                    {% endif %}
 
                 </div>
             </div>
@@ -48,6 +45,7 @@
     </div>
 </div>
 
+    {% endif %}
 {% endfor %}
 
 </main>

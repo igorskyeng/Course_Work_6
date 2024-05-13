@@ -8,9 +8,17 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{% url 'main:client_list' %}" class="nav-link active" aria-current="page">
+                <a href="{% url 'main:home_list' %}" class="nav-link active" aria-current="page">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home"/>
+                    </svg>
+                    Главная
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'main:client_list' %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#table"/>
                     </svg>
                     Клиенты
                 </a>
@@ -23,20 +31,28 @@
                     Сообщения
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{% url 'main:mailing_list' %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#people-circle"/>
+                    </svg>
+                    Рассылки
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'main:report_list' %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#people-circle"/>
+                    </svg>
+                    Отчет
+                </a>
+            </li>
             <li>
                 <a href="{% url 'blog:list' %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#speedometer2"/>
                     </svg>
                     Блог
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#people-circle"/>
-                    </svg>
-                    Контакты
                 </a>
             </li>
         </ul>

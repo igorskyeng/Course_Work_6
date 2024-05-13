@@ -12,9 +12,13 @@
                 <h4 class="my-0 fw-normal">{{ object|title }} </h4>
             </div>
             <div class="card-body">
-                <h2 class="card-title pricing-card-title">111</h2>
+                <h2 class="card-title pricing-card-title">{{ object.email }}</h2>
                     <p>
-                        222
+                        Создатель странички клиента - {{ user }}
+                    </p>
+
+                    <p>
+                        {{ object.comments }}
                     </p>
             </div>
         </div>

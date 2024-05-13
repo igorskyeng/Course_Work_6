@@ -4,13 +4,17 @@
 
     <main class="row">
 
+        {% if user.is_superuser%}
+
             <div class="col-12 mb-5">
                 <a class="bnt btn-outline-primary" href="{% url 'blog:create' %}">Добавить блог</a>
             </div>
 
+        {% endif %}
+
             {% for object in object_list|slice:100 %}
             <div class="row text-center col-4">
-                <div class="card rounded-3 shadow-sm">
+                <div class="card mt-3 rounded-3 shadow-sm">
                     <div class="card-header py-3">
                         <h4 class="my-0 fw-normal">{{ object|title }}</h4>
                     </div>
@@ -22,14 +26,25 @@
                         <div class="d-flex justify-content-between align-items-centor">
                             <div class="bnt-group">
                                 <a class="bnt btn-sm btn-outline-secondary" href="{% url 'blog:view' object.pk %}">Посмотреть</a>
-                                <a class="bnt btn-sm btn-outline-secondary" href="{% url 'blog:edit' object.pk %}">Редактировать</a>
-                                <a class="bnt btn-sm btn-outline-secondary" href="{% url 'blog:delete' object.pk %}">Удалить</a>
-                            </div>
-                            {% if object.publication_sign %}
-                                <a class="bnt btn-warning" href="{% url 'blog:switching_publications' object.pk %}">Снять с публикации</a>
-                            {% else %}
-                                <a class="bnt btn-success" href="{% url 'blog:switching_publications' object.pk %}">Опубликовать</a>
+
+                            {% if not object or user.is_superuser%}
+
+                                    <a class="bnt btn-sm btn-outline-secondary" href="{% url 'blog:edit' object.pk %}">Редактировать</a>
+                                    <a class="bnt btn-sm btn-outline-secondary" href="{% url 'blog:delete' object.pk %}">Удалить</a>
+                                </div>
+
+                                {% if object.publication_sign %}
+
+                                    <a class="bnt btn-warning" href="{% url 'blog:switching_publications' object.pk %}">Снять с публикации</a>
+
+                                {% else %}
+
+                                    <a class="bnt btn-success" href="{% url 'blog:switching_publications' object.pk %}">Опубликовать</a>
+
+                                {% endif %}
+
                             {% endif %}
+
                         </div>
                     </div>
                 </div>

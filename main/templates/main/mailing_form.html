@@ -8,12 +8,12 @@
               <div class="card">
                   <h3 class="card-title">
                       {% if object %}
-                        Редактировать сообщение
+                        Редактировать рассылки
                       {% else %}
-                        Добавление сообщение
+                        Добавление рассылки
                       {% endif %}
                   </h3>
-                  (Если указать не своего пользователя, то у вас не отобразиться карточка сообщения.)
+                  (Если указать не своего пользователя, то у вас не отобразиться карточка рассылки.)
                   <div class="card-body">
                       {% csrf_token %}
                       {{ form.as_p }}
@@ -24,7 +24,7 @@
                             Создать
                           {% endif %}
                       </button>
-                      <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:message_list' %}">Назад</a>
+                      <a class="bnt btn-sm btn-outline-secondary" href="{% url 'main:mailing_list' %}">Назад</a>
                   </div>
               </div>
           </div>
