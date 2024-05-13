@@ -36,6 +36,22 @@ class RegisterView(CreateView):
 
         return context_data
 
+    def form_valid(self, form):
+        user = form.save()
+        user.is_active = False
+        token = secrets.token_hex(16)
+        user.token = token
+        user.save()
+        host = self.request.get_host()
+        url = f'http://{host}/users/email_confirm/{token}/'
+        send_mail(
+            subject='Подтверждение почты',
+            message=f'Привет! Перейди по ссылке для подтверждения почты - {url}',
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[user.email]
+        )
+        return super().form_valid(form)
+
 
 class ProfileView(LoginRequiredMixin, UpdateView):
     model = User
