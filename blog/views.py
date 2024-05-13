@@ -24,9 +24,8 @@ class BlogCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class BlogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class BlogListView(LoginRequiredMixin, ListView):
     model = Blog
-    permission_required = 'blog.view_blog'
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
@@ -38,8 +37,9 @@ class BlogListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return context_data
 
 
-class BlogDetailView(LoginRequiredMixin, DetailView):
+class BlogDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Blog
+    permission_required = 'blog.detail_blog'
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)

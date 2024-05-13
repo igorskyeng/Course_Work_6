@@ -8,7 +8,7 @@ from blog.models import Blog
 
 @admin.register(ClientService)
 class ClientServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'email', 'name', 'comments')
+    list_display = ('id', 'email', 'name', 'comments', 'user')
     list_filter = ('email',)
     search_fields = ('name', 'comments')
 
@@ -22,9 +22,9 @@ class MessageMailingAdmin(admin.ModelAdmin):
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'create_date', 'period_mailing', 'status_mailing', 'client', 'message')
+    list_display = ('id', 'create_date', 'period_mailing', 'status_mailing', 'message')
     list_filter = ('create_date',)
-    search_fields = ('client', 'message')
+    search_fields = ('status_mailing', 'period_mailing')
 
 
 @admin.register(MailingAttempt)

@@ -1,5 +1,5 @@
 from django import forms
-from main.models import ClientService, MessageMailing
+from main.models import ClientService, MessageMailing, Mailing
 
 
 class StyleFormMixin:
@@ -25,18 +25,18 @@ class ClientAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
 
     class Meta:
         model = ClientService
-        fields = ('email', 'name', 'comments')
+        fields = ('email', 'name', 'comments', 'user')
 
 
 class MessageAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
 
     class Meta:
         model = MessageMailing
-        fields = ('subject_line', 'body')
+        fields = ('subject_line', 'body', 'user')
 
 
-class ClientForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
+class MallingAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
 
     class Meta:
-        model = ClientService
-        fields = ('email', 'name', 'comments')
+        model = Mailing
+        fields = ('create_date', 'period_mailing', 'status_mailing', 'client', 'message', 'user')
