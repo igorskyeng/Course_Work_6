@@ -28,6 +28,13 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
 
         return context_data
 
+    def form_valid(self, form):
+        client = form.save()
+        client.user = self.request.user
+        client.save()
+
+        return super().form_valid(form)
+
 
 class ClientListView(LoginRequiredMixin, ListView):
     model = ClientService
@@ -102,6 +109,13 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
 
         return context_data
 
+    def form_valid(self, form):
+        client = form.save()
+        client.user = self.request.user
+        client.save()
+
+        return super().form_valid(form)
+
 
 class MessageListView(LoginRequiredMixin, ListView):
     model = MessageMailing
@@ -168,6 +182,13 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         context_data['title'] = 'Добавление рассылки'
 
         return context_data
+
+    def form_valid(self, form):
+        client = form.save()
+        client.user = self.request.user
+        client.save()
+
+        return super().form_valid(form)
 
 
 class MailingListView(LoginRequiredMixin, ListView):

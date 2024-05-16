@@ -25,18 +25,18 @@ class ClientAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
 
     class Meta:
         model = ClientService
-        fields = ('email', 'name', 'comments', 'user')
+        fields = ('email', 'name', 'comments')
 
 
 class MessageAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
 
     class Meta:
         model = MessageMailing
-        fields = ('subject_line', 'body', 'user')
+        fields = ('subject_line', 'body')
 
 
 class MallingAddForm(StyleFormMixin, CleanNameProductMixin, forms.ModelForm):
 
     class Meta:
         model = Mailing
-        fields = ('create_date', 'period_mailing', 'status_mailing', 'client', 'message', 'user')
+        fields = ('create_date', 'period_mailing', 'status_mailing', 'client', 'message')
