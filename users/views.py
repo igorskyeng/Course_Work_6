@@ -13,7 +13,7 @@ from users.models import User
 from config.settings import EMAIL_HOST_USER
 
 
-class LoginView(LoginView):
+class UserLoginView(LoginView):
     model = User
     template_name = 'users/login.html'
 
@@ -43,7 +43,7 @@ class RegisterView(CreateView):
         user.token = token
         user.save()
         host = self.request.get_host()
-        url = f'http://{host}/users/email_confirm/{token}/'
+        url = f'http://{host}/users/register/confirm/{token}/'
         send_mail(
             subject='Подтверждение почты',
             message=f'Привет! Перейди по ссылке для подтверждения почты - {url}',
