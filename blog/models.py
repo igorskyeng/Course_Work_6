@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.exceptions import ValidationError
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -13,6 +14,14 @@ class Blog(models.Model):
     date_of_creation = models.DateTimeField(default=datetime.now(), max_length=100, verbose_name='Дата создания')
     publication_sign = models.BooleanField(default=True, verbose_name='Публикация')
     views_count = models.IntegerField(default=0, verbose_name='Просмотры')
+
+    def clean(self):
+        if self.image_preview:
+            if self.image_preview.width > 50 or self.image_preview.height > 50:
+                raise ValidationError(
+                    {'image_preview': 'Максимальный размер картинки 50х50 пикселей. '}
+                )
+        return super().clean()
 
     def __str__(self):
         return self.title
