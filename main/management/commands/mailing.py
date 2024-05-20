@@ -17,44 +17,45 @@ def send_mailing():
     mailings = Mailing.objects.filter(status_mailing="Запущена")
 
     for mailing in mailings:
-        status = False
-        server_response = "Нет ответа"
-
-        try:
-            send_mail(
-                    subject=MessageMailing.subject_line,
-                    message=MessageMailing.body,
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[client.email for client in mailing.client.all()],
-                    fail_silently=False
-            )
-            if mailing.period_mailing == period_mailing[0]:
-                mailing.create_date = F('create_date') + timedelta(days=1)
-
-            elif mailing.period == period_mailing[1] and current_datetime.day >= 7:
-                mailing.create_date = F('create_date') + timedelta(days=7)
-
-            elif mailing.period == period_mailing[2] and current_datetime.day >= 30:
-                mailing.create_date = F('create_date') + timedelta(days=30)
-
-            mailing.save()
-
-            status = True
-            server_response = "Успешно"
-
-        except smtplib.SMTPResponseException as response:
+        if mailing.create_date < current_datetime + timedelta(hours=3):
             status = False
-            server_response = str(response)
+            server_response = "Нет ответа"
 
-        finally:
-            MailingAttempt.objects.create(
-                mailing=mailing,
-                status_mailing=status,
-                server_response=server_response,
-            )
+            try:
+                send_mail(
+                        subject=mailing.message.subject_line,
+                        message=mailing.message.body,
+                        from_email=settings.EMAIL_HOST_USER,
+                        recipient_list=[client.email for client in mailing.client.all()],
+                        fail_silently=False
+                )
+                if mailing.period_mailing == period_mailing[0]:
+                    mailing.create_date = F('create_date') + timedelta(days=1)
+
+                elif mailing.period_mailing == period_mailing[1]:
+                    mailing.create_date = F('create_date') + timedelta(days=7)
+
+                elif mailing.period_mailing == period_mailing[2]:
+                    mailing.create_date = F('create_date') + timedelta(days=30)
+
+                mailing.save()
+
+                status = True
+                server_response = "Успешно"
+
+            except smtplib.SMTPResponseException as response:
+                status = False
+                server_response = str(response)
+
+            finally:
+                MailingAttempt.objects.create(
+                    mailing=mailing,
+                    status_mailing=status,
+                    server_response=server_response,
+                )
 
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(send_mailing, "interval", seconds=10)
+    scheduler.add_job(send_mailing, "interval", seconds=60)
     scheduler.start()
