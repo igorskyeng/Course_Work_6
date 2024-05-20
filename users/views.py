@@ -6,6 +6,7 @@ from django.views.generic import CreateView, UpdateView,  TemplateView
 from django.urls import reverse_lazy, reverse
 from django.core.mail import send_mail
 from django.contrib.auth.views import LoginView
+from django.core.exceptions import ValidationError
 
 from users.forms import UserRegisterForm, UserProfileForm, PasswordRecoveryForm
 from users.models import User
@@ -39,7 +40,8 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         user.is_active = False
-        token = secrets.token_hex(16)
+        token = secrets.token_hex(12)
+        print(token)
         user.token = token
         user.save()
         host = self.request.get_host()
@@ -51,6 +53,16 @@ class RegisterView(CreateView):
             recipient_list=[user.email]
         )
         return super().form_valid(form)
+
+
+def verification(request, token):
+    user = User.objects.filter(token=token).first()
+
+    if user:
+        user.is_active = True
+        user.save()
+
+    return redirect('users:login')
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):

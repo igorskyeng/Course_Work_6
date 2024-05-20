@@ -9,6 +9,7 @@ class User(AbstractUser):
     country = models.CharField(max_length=100, verbose_name='Страна')
     avatar = models.ImageField(upload_to='users/', verbose_name='avatar', **NULLABLE)
     phone = models.CharField(max_length=35, verbose_name='Телефон', **NULLABLE)
+    token = models.CharField(max_length=24, verbose_name='Токен верификации', **NULLABLE)
 
     USERNAME_FIELD = "email"
     username = USERNAME_FIELD
