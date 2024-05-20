@@ -14,7 +14,7 @@ def send_mailing():
     period_mailing = ["Раз в день", "Раз в неделю", "Раз в месяц"]
     zone = pytz.timezone(settings.TIME_ZONE)
     current_datetime = datetime.now(zone)
-    mailings = Mailing.objects.filter(status_mailing="Запущена").filter(create_date=current_datetime)
+    mailings = Mailing.objects.filter(status_mailing="Запущена")
 
     for mailing in mailings:
         status = False
