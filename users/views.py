@@ -29,7 +29,7 @@ class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = 'users/register.html'
-    success_url = reverse_lazy('users:login')
+    success_url = reverse_lazy('users:message_verification')
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
@@ -41,7 +41,6 @@ class RegisterView(CreateView):
         user = form.save()
         user.is_active = False
         token = secrets.token_hex(12)
-        print(token)
         user.token = token
         user.save()
         host = self.request.get_host()
@@ -62,7 +61,7 @@ def verification(request, token):
         user.is_active = True
         user.save()
 
-    return redirect('users:login')
+    return redirect('users:successfully')
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):

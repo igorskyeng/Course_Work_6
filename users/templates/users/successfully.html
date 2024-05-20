@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="col-3"></div>
+            <div class="col-6">
+                <div class="card">
+                    <h3 class="card-title">
+                        Поздравляем, Вы успешно зарегистрировались!<br>
+                        Для дальнейшей работы нажмите "Войти".
+                    </h3>
+                    <div class="card-body">
+                        <a class="p-l-2 btn btn-primary" href="{% url 'users:login' %}">Войти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
